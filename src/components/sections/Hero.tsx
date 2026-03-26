@@ -69,7 +69,7 @@ export default function Hero() {
 
       {/* Name with staggered animation */}
       <motion.h1
-        className="text-5xl md:text-7xl lg:text-8xl font-bold text-text-primary mb-4 tracking-tight"
+        className="text-[clamp(1.8rem,9vw,3.5rem)] md:text-7xl lg:text-8xl font-bold text-text-primary mb-4 tracking-tight whitespace-nowrap"
         initial="hidden"
         animate="visible"
         aria-label={name}
