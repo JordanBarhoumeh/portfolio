@@ -280,3 +280,10 @@ export const socialLinks = {
   linkedin: "https://www.linkedin.com/in/jordan-barhoumeh/",
   email: "mailto:jordan@example.com",
 };
+
+export const heroLines = [
+  ["Data", "is"],
+  ["my", "craft"],
+];
+
+export const heroSubline = "turning complexity into clarity";

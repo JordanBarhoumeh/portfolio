@@ -1,31 +1,29 @@
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
-import ScrollProgress from "./components/ui/ScrollProgress";
-import Hero from "./components/sections/Hero";
-import About from "./components/sections/About";
-import Experience from "./components/sections/Experience";
-import Projects from "./components/sections/Projects";
-import Skills from "./components/sections/Skills";
-import Certifications from "./components/sections/Certifications";
-import Volunteering from "./components/sections/Volunteering";
-import Contact from "./components/sections/Contact";
+import NavbarNew from "./components/layout/NavbarNew";
+import FooterNew from "./components/layout/FooterNew";
+import LetterExplosion from "./components/sections/LetterExplosion";
+import AboutNew from "./components/sections/AboutNew";
+import ExperienceNew from "./components/sections/ExperienceNew";
+import ProjectsNew from "./components/sections/ProjectsNew";
+import SkillsNew from "./components/sections/SkillsNew";
+import CertificationsNew from "./components/sections/CertificationsNew";
+import VolunteeringNew from "./components/sections/VolunteeringNew";
+import ContactNew from "./components/sections/ContactNew";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-bg-primary">
-      <ScrollProgress />
-      <Navbar />
+    <div className="overflow-x-hidden">
+      <NavbarNew />
       <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Projects />
-        <Skills />
-        <Certifications />
-        <Volunteering />
-        <Contact />
+        <LetterExplosion />
+        <AboutNew />
+        <ProjectsNew />
+        <ExperienceNew />
+        <SkillsNew />
+        <CertificationsNew />
+        <VolunteeringNew />
+        <ContactNew />
       </main>
-      <Footer />
+      <FooterNew />
     </div>
   );
 }
