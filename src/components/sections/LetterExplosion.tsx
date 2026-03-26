@@ -32,7 +32,47 @@ function LetterDisplay({ word }: { word: string }) {
 export default function LetterExplosion() {
   const ref = useRef<HTMLDivElement>(null);
   const sublineRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
 
+  // Mouse-following dot
+  useEffect(() => {
+    const section = sectionRef.current;
+    const dot = dotRef.current;
+    if (!section || !dot) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = section.getBoundingClientRect();
+      // Only follow if mouse is within the hero section
+      if (e.clientY < rect.top || e.clientY > rect.bottom) return;
+
+      gsap.to(dot, {
+        x: e.clientX - rect.left - rect.width / 2,
+        y: e.clientY - rect.top - rect.height / 3,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(dot, {
+        x: 0,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+      });
+    };
+
+    section.addEventListener("mousemove", handleMouseMove);
+    section.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      section.removeEventListener("mousemove", handleMouseMove);
+      section.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
+  // Letter explosion animation
   useEffect(() => {
     if (!ref.current) return;
 
@@ -41,15 +81,20 @@ export default function LetterExplosion() {
 
     letters.forEach((letter) => {
       const speed = parseFloat(letter.dataset.speed || "1");
+      // Cap the drift so letters stay within the hero/about area
+      const maxDrift = window.innerHeight * 0.4;
+      const drift = (1 - speed) * maxDrift * (Math.random() > 0.5 ? 1 : -1.5);
+
       const tween = gsap.to(letter, {
-        y: (1 - speed) * ScrollTrigger.maxScroll(window),
+        y: drift,
         rotation: getRandomRotation(),
+        opacity: 0,
         ease: "power2.out",
         duration: 0.8,
         scrollTrigger: {
           trigger: document.documentElement,
           start: 0,
-          end: window.innerHeight,
+          end: window.innerHeight * 0.8,
           scrub: 0.5,
           invalidateOnRefresh: true,
         },
@@ -77,9 +122,16 @@ export default function LetterExplosion() {
   }, []);
 
   return (
-    <section id="hero" className="relative min-h-screen bg-bg-primary">
-      {/* Floating accent dot */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-accent z-10 pointer-events-none" />
+    <section
+      ref={sectionRef}
+      id="hero"
+      className="relative min-h-screen bg-bg-primary overflow-hidden"
+    >
+      {/* Mouse-following accent dot */}
+      <div
+        ref={dotRef}
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-accent z-10 pointer-events-none will-change-transform"
+      />
 
       <div ref={ref} className="px-6 md:px-12 lg:px-16">
         <div className="flex min-h-screen flex-col justify-end pb-24">
