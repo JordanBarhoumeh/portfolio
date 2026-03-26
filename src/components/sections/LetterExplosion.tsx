@@ -48,6 +48,8 @@ export default function LetterExplosion() {
       gsap.to(dot, {
         left: e.clientX - rect.left - 32,
         top: e.clientY - rect.top - 32,
+        opacity: 1,
+        scale: 1,
         duration: 0.6,
         ease: "power2.out",
       });
@@ -55,9 +57,9 @@ export default function LetterExplosion() {
 
     const handleMouseLeave = () => {
       gsap.to(dot, {
-        left: 40,
-        top: 24,
-        duration: 0.8,
+        opacity: 0,
+        scale: 0.5,
+        duration: 0.5,
         ease: "power2.out",
       });
     };
@@ -126,10 +128,11 @@ export default function LetterExplosion() {
       id="hero"
       className="relative min-h-screen bg-bg-primary overflow-hidden"
     >
-      {/* Mouse-following accent dot — defaults behind JB logo */}
+      {/* Mouse-following accent dot — hidden by default, appears on hover */}
       <div
         ref={dotRef}
-        className="absolute top-6 left-10 w-16 h-16 rounded-full bg-accent z-0 pointer-events-none will-change-transform"
+        style={{ opacity: 0, transform: "scale(0.5)" }}
+        className="absolute top-0 left-0 w-16 h-16 rounded-full bg-accent z-10 pointer-events-none will-change-transform"
       />
 
       <div ref={ref} className="px-6 md:px-12 lg:px-16">

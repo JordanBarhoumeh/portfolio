@@ -37,20 +37,22 @@ export default function NavbarNew() {
           </div>
 
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.slice(0, 4).map((link) => (
+            {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 className="text-sm text-text-primary hover:text-accent transition-colors"
               >
                 {link.label}
+                {link.label === "Contact" && <span className="text-xs ml-1">↗</span>}
               </a>
             ))}
           </div>
 
+          {/* Mobile only contact link */}
           <a
             href="#contact"
-            className="text-sm text-text-primary hover:text-accent transition-colors flex items-center gap-1"
+            className="md:hidden text-sm text-text-primary hover:text-accent transition-colors flex items-center gap-1"
           >
             Contact <span className="text-xs">↗</span>
           </a>
