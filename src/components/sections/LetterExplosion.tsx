@@ -41,18 +41,28 @@ export default function LetterExplosion() {
     const dot = dotRef.current;
     if (!section || !dot) return;
 
+    let isVisible = false;
+
     const handleMouseMove = (e: MouseEvent) => {
       const rect = section.getBoundingClientRect();
       if (e.clientY < rect.top || e.clientY > rect.bottom) return;
 
-      gsap.to(dot, {
-        left: e.clientX - rect.left - 32,
-        top: e.clientY - rect.top - 32,
-        opacity: 1,
-        scale: 1,
-        duration: 0.6,
-        ease: "power2.out",
-      });
+      const x = e.clientX - rect.left - 32;
+      const y = e.clientY - rect.top - 32;
+
+      if (!isVisible) {
+        // First move after entering: snap position instantly, then fade in
+        gsap.set(dot, { left: x, top: y });
+        gsap.to(dot, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" });
+        isVisible = true;
+      } else {
+        gsap.to(dot, {
+          left: x,
+          top: y,
+          duration: 0.6,
+          ease: "power2.out",
+        });
+      }
     };
 
     const handleMouseLeave = () => {
@@ -62,6 +72,7 @@ export default function LetterExplosion() {
         duration: 0.5,
         ease: "power2.out",
       });
+      isVisible = false;
     };
 
     section.addEventListener("mousemove", handleMouseMove);
