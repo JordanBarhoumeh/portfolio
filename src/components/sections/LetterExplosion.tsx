@@ -43,12 +43,11 @@ export default function LetterExplosion() {
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = section.getBoundingClientRect();
-      // Only follow if mouse is within the hero section
       if (e.clientY < rect.top || e.clientY > rect.bottom) return;
 
       gsap.to(dot, {
-        x: e.clientX - rect.left - rect.width / 2,
-        y: e.clientY - rect.top - rect.height / 3,
+        left: e.clientX - rect.left - 32,
+        top: e.clientY - rect.top - 32,
         duration: 0.6,
         ease: "power2.out",
       });
@@ -56,8 +55,8 @@ export default function LetterExplosion() {
 
     const handleMouseLeave = () => {
       gsap.to(dot, {
-        x: 0,
-        y: 0,
+        left: 40,
+        top: 24,
         duration: 0.8,
         ease: "power2.out",
       });
@@ -127,10 +126,10 @@ export default function LetterExplosion() {
       id="hero"
       className="relative min-h-screen bg-bg-primary overflow-hidden"
     >
-      {/* Mouse-following accent dot */}
+      {/* Mouse-following accent dot — defaults behind JB logo */}
       <div
         ref={dotRef}
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-accent z-10 pointer-events-none will-change-transform"
+        className="absolute top-6 left-10 w-16 h-16 rounded-full bg-accent z-0 pointer-events-none will-change-transform"
       />
 
       <div ref={ref} className="px-6 md:px-12 lg:px-16">

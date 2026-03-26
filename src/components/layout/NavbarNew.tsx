@@ -36,29 +36,16 @@ export default function NavbarNew() {
             </span>
           </div>
 
-          <div className="hidden md:flex gap-12">
-            <div className="flex flex-col gap-1">
-              {navLinks.slice(0, 2).map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm text-text-primary hover:text-accent transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-            <div className="flex flex-col gap-1">
-              {navLinks.slice(2, 4).map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm text-text-primary hover:text-accent transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.slice(0, 4).map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-sm text-text-primary hover:text-accent transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
 
           <a
